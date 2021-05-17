@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
+import { Heading } from "@chakra-ui/react";
 
-const DynamicText = () => {
-  const [value, setValue] = useState("Random Text");
-
-  const changeValue = (newValue) => {
-    setValue(newValue);
+class DynamicText extends React.Component {
+  state = {
+    value: "Random text",
   };
 
-  return <h1>{value}</h1>;
-};
+  changeValue = (newValue) => {
+    this.setState({
+      value: newValue,
+    });
+  };
+
+  render() {
+    return (
+      <Heading as="h1" w={[300, 400, 560]} textAlign="center">
+        {this.state.value}
+      </Heading>
+    );
+  }
+}
 
 export default DynamicText;
