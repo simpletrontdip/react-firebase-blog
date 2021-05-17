@@ -1,7 +1,8 @@
 import Head from "next/head";
-import { Flex, Input } from "@chakra-ui/react";
-import DynamicText from "../components/DynamicText";
 import { useRef } from "react";
+import { Flex, Input } from "@chakra-ui/react";
+
+import DynamicText from "components/DynamicText";
 
 const Home = () => {
   const textRef = useRef(null);
