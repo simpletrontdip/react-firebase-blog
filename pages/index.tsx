@@ -1,27 +1,38 @@
-import Head from "next/head";
-import { useRef } from "react";
-import { Flex, Input } from "@chakra-ui/react";
+import firebase from "firebase/app";
+import "firebase/auth";
 
-import DynamicText from "components/DynamicText";
+import { FirebaseAuthProvider, FirebaseAuthConsumer } from "@react-firebase/auth";
 
-const Home = () => {
-  const textRef = useRef(null);
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    textRef.current.changeValue(e.target.value);
-  };
+import { config } from "../config";
 
+import Home from "./home";
+import Login from "./login";
+
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+const App = () => {
   return (
-    <Flex minHeight="100vh" paddingY="0.5rem" flexDirection="column" justifyContent="center" alignItems="center">
-      <Head>
-        <title>Coding Test</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Flex paddingX="5rem" flexDirection="column" justifyContent="center" alignItems="center">
-        <DynamicText ref={textRef} />
-        <Input onChange={onChange} />
-      </Flex>
-    </Flex>
+    <FirebaseAuthProvider {...config} firebase={firebase}>
+      <FirebaseAuthConsumer>
+        {({ isSignedIn, user, providerId }) =>
+          isSignedIn ? (
+            <Home
+              user={user}
+              logout={() => {
+                firebase.auth().signOut();
+              }}
+            />
+          ) : (
+            <Login
+              login={() => {
+                firebase.auth().signInWithPopup(googleAuthProvider);
+              }}
+            />
+          )
+        }
+      </FirebaseAuthConsumer>
+    </FirebaseAuthProvider>
   );
 };
 
-export default Home;
+export default App;
