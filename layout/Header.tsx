@@ -37,6 +37,7 @@ const Header = () => {
           <>
             <Avatar name={user.displayName} src={user.photoURL} />
             <Button
+              ml={1}
               variant="outline"
               color="red.500"
               onClick={() =>
