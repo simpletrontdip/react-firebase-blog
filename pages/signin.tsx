@@ -3,11 +3,11 @@ import Router from "next/router";
 import firebase from "firebase/app";
 
 import { Box, Flex, Heading, Stack } from "@chakra-ui/layout";
-import { Input, Text } from "@chakra-ui/react";
+import { Input, Spinner, Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/button";
 import { useFirebaseUser } from "context/userContext";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
@@ -17,13 +17,29 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState();
 
+  useEffect(() => {
+    let timeoutId = null;
+    if (user) {
+      timeoutId = setTimeout(() => {
+        Router.push("/");
+      }, 1000);
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [user]);
+
   const renderContent = () => {
     if (user) {
-      setTimeout(() => {
-        Router.push("/");
-      }, 2000);
-
-      return <Text>You are logged in.</Text>;
+      return (
+        <>
+          <Text>You are already in.</Text>
+          <Spinner label="Redirecting..." />
+        </>
+      );
     }
 
     return (

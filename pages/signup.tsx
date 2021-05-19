@@ -2,11 +2,11 @@ import Head from "next/head";
 import Router from "next/router";
 
 import { Box, Flex, Heading, Stack } from "@chakra-ui/layout";
-import { Input, Text } from "@chakra-ui/react";
+import { Input, Spinner, Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/button";
 import { useFirebaseUser } from "context/userContext";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SignUp = () => {
   const { user, loading, signUp } = useFirebaseUser();
@@ -15,13 +15,29 @@ const SignUp = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState();
 
+  useEffect(() => {
+    let timeoutId = null;
+    if (user) {
+      timeoutId = setTimeout(() => {
+        Router.push("/");
+      }, 1000);
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [user]);
+
   const renderContent = () => {
     if (user) {
-      setTimeout(() => {
-        Router.push("/");
-      }, 2000);
-
-      return <Text>You are logged in.</Text>;
+      return (
+        <>
+          <Text>You are already in.</Text>
+          <Spinner label="Redirecting..." />
+        </>
+      );
     }
 
     return (

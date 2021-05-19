@@ -2,8 +2,21 @@ import memoizeOne from "memoize-one";
 import { useState, useEffect, createContext, useContext } from "react";
 import firebase from "../firebase/clientApp";
 
-const FirebaseUserContext = createContext({});
-const useFirebaseUser = () => useContext(FirebaseUserContext);
+type UserType = {
+  uid: string;
+  displayName: string;
+  email: string;
+  photoURL: string;
+};
+
+type FirebaseUserContextType = {
+  user: UserType | null;
+  loading: boolean;
+  signIn: (email: string, password: string) => Promise<any>;
+  signUp: (email: string, password: string) => Promise<any>;
+  signOut: () => Promise<any>;
+  oAuthSignIn: (provider: any) => Promise<any>;
+};
 
 const signIn = (email, password) => {
   return firebase.auth().signInWithEmailAndPassword(email, password);
@@ -20,6 +33,16 @@ const signUp = (email, password) => {
 const oAuthSignIn = (provider) => {
   return firebase.auth().signInWithPopup(provider);
 };
+
+const FirebaseUserContext = createContext<FirebaseUserContextType>({
+  user: null,
+  loading: false,
+  signIn,
+  signOut,
+  signUp,
+  oAuthSignIn,
+});
+const useFirebaseUser = () => useContext(FirebaseUserContext);
 
 const buildAuthState = memoizeOne((authState) => ({
   ...authState,
