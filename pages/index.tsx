@@ -1,38 +1,58 @@
-import firebase from "firebase/app";
-import "firebase/auth";
+import { useRef } from "react";
+import Head from "next/head";
+import Router from "next/router";
+import { Avatar, Button, Flex, Input, Spinner, Text } from "@chakra-ui/react";
 
-import { FirebaseAuthProvider, FirebaseAuthConsumer } from "@react-firebase/auth";
+import DynamicText from "components/DynamicText";
+import { useFirebaseUser } from "context/userContext";
 
-import { config } from "../config";
+const Home = () => {
+  const { user, loading, signOut } = useFirebaseUser();
+  const textRef = useRef(null);
 
-import Home from "./home";
-import Login from "./login";
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    textRef.current.changeValue(e.target.value);
+  };
 
-const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+  const renderContent = () => {
+    if (loading) {
+      return <Spinner label="Loading..." />;
+    }
 
-const App = () => {
+    if (user) {
+      return (
+        <>
+          <Flex paddingX="5rem" justifyContent="flex-end" alignItems="center" justifySelf="flex-start">
+            <Avatar name={user.displayName} src={user.photoURL} />
+            <Button onClick={signOut}>Logout</Button>
+          </Flex>
+          <Flex paddingX="5rem" flexDirection="column" justifyContent="center" alignItems="center">
+            <DynamicText ref={textRef} />
+            <Input onChange={onChange} />
+          </Flex>
+        </>
+      );
+    }
+    setTimeout(() => {
+      Router.push("/signin");
+    }, 1500);
+    return (
+      <>
+        <Text>You need to sign-in first</Text>
+        <Spinner label="Redirecting..." />
+      </>
+    );
+  };
+
   return (
-    <FirebaseAuthProvider {...config} firebase={firebase}>
-      <FirebaseAuthConsumer>
-        {({ isSignedIn, user, providerId }) =>
-          isSignedIn ? (
-            <Home
-              user={user}
-              logout={() => {
-                firebase.auth().signOut();
-              }}
-            />
-          ) : (
-            <Login
-              login={() => {
-                firebase.auth().signInWithPopup(googleAuthProvider);
-              }}
-            />
-          )
-        }
-      </FirebaseAuthConsumer>
-    </FirebaseAuthProvider>
+    <Flex minHeight="100vh" paddingY="0.5rem" flexDirection="column" justifyContent="center" alignItems="center">
+      <Head>
+        <title>Coding Test: Home</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      {renderContent()}
+    </Flex>
   );
 };
 
-export default App;
+export default Home;

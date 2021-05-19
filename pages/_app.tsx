@@ -1,12 +1,15 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import FirebaseUserProvider from "../context/userContext";
 
 import "../styles/globals.css";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <FirebaseUserProvider>
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </FirebaseUserProvider>
   );
 };
 
