@@ -1,11 +1,27 @@
 import Head from "next/head";
-import { Flex, Box, Heading, Text, Spinner } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Button,
+  Heading,
+  Text,
+  Spinner,
+  Modal,
+  ModalContent,
+  ModalOverlay,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 
-import Card from "components/Card";
+import BlogCard from "components/BlogCard";
 import useFirebaseBlogs from "context/useBlogs";
+import { useState } from "react";
 
 const Blog = () => {
   const { blogs, loading, error } = useFirebaseBlogs({ limit: 10, offset: null });
+  const [activeBlog, setActiveBlog] = useState(null);
 
   return (
     <>
@@ -34,9 +50,43 @@ const Blog = () => {
               <Spinner label="loading..." />
             </Box>
           )}
-          {blogs && blogs.map((blog) => <Card key={blog.slug} {...blog} />)}
+          {blogs &&
+            blogs.map((blog) => (
+              <BlogCard
+                key={blog.slug}
+                {...blog}
+                onClick={() => {
+                  setActiveBlog(blog);
+                }}
+              />
+            ))}
         </Flex>
       </Flex>
+      {activeBlog && (
+        <Modal
+          isOpen={!!activeBlog}
+          onClose={() => {
+            setActiveBlog(null);
+          }}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>{activeBlog.title}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Box>{activeBlog.content}</Box>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                mr={3}
+                onClick={() => {
+                  setActiveBlog(null);
+                }}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </>
   );
 };

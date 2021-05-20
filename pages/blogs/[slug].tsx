@@ -4,7 +4,7 @@ import { Box, Heading } from "@chakra-ui/react";
 
 const escapeHtmlContent = (content) => content;
 
-const BlogDetail = ({ title, content }) => {
+const BlogDetail = ({ blog: { title, content } }) => {
   return (
     <Box>
       <Heading as="h1" size="md">
