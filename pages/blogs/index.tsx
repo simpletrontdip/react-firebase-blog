@@ -1,40 +1,12 @@
 import Head from "next/head";
-import { Flex, Heading, Box, Image, Badge } from "@chakra-ui/react";
+import { Flex, Box, Heading, Text, Spinner } from "@chakra-ui/react";
+
 import Card from "components/Card";
-
-const blogs = [
-  {
-    slug: "blog1",
-    title: "Blog 1",
-    image: "https://bit.ly/naruto-sage",
-    content: "Ahahah",
-  },
-  {
-    slug: "blog2",
-    title: "Blog 2",
-    image: null,
-    content: "Ahahah",
-  },
-  {
-    slug: "blog3",
-    title: "Blog 3",
-    image: null,
-    content: "What is this?",
-  },
-];
-
-const property = {
-  imageUrl: "https://bit.ly/2Z4KKcF",
-  imageAlt: "Rear view of modern home with pool",
-  beds: 3,
-  baths: 2,
-  title: "Modern home in city center in the heart of historic Los Angeles",
-  formattedPrice: "$1,900.00",
-  reviewCount: 34,
-  rating: 4,
-};
+import useFirebaseBlogs from "context/useBlogs";
 
 const Blog = () => {
+  const { blogs, loading, error } = useFirebaseBlogs({ limit: 10, offset: null });
+
   return (
     <>
       <Head>
@@ -49,10 +21,20 @@ const Blog = () => {
         justifyContent="center"
         alignItems="center">
         <Heading m={2}>Blogs</Heading>
+        {error && (
+          <Box w="100%" textAlign="center" mt={3}>
+            <Text size="sm" color="red.500">
+              {error}
+            </Text>
+          </Box>
+        )}
         <Flex w={["auto", "100%", 800]} flexFlow="row wrap" justifyContent="space-around">
-          {blogs.map((blog) => (
-            <Card {...blog} />
-          ))}
+          {loading && !blogs && (
+            <Box width="100%" textAlign="center">
+              <Spinner label="loading..." />
+            </Box>
+          )}
+          {blogs && blogs.map((blog) => <Card key={blog.slug} {...blog} />)}
         </Flex>
       </Flex>
     </>
