@@ -1,4 +1,6 @@
-import { Box, Text } from "@chakra-ui/react";
+import Link from "next/link";
+import { Box, Text, Button, Flex, Icon } from "@chakra-ui/react";
+import { MdEdit } from "react-icons/md";
 
 const formatter = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "medium",
@@ -7,11 +9,20 @@ const formatter = new Intl.DateTimeFormat("en-GB", {
 
 const escapeHtmlContent = (content) => content;
 
-const BlogDetail = ({ title, lastModified, content }) => (
+const BlogDetail = ({ inModal, slug, title, lastModified, content }) => (
   <Box minHeight="320px">
-    <Text mt={2} px={2} fontWeight="semibold" fontSize="2xl">
-      {title}
-    </Text>
+    <Flex px={2} alignItems="center">
+      <Text flex="1" mt={2} fontWeight="semibold" fontSize="2xl">
+        {title}
+      </Text>
+      {!inModal && (
+        <Link href={`/dashboard?slug=${slug}`}>
+          <Button color="teal" variant="outline" fontSize="md">
+            <Icon as={MdEdit} mr={1} /> Edit (Admin)
+          </Button>
+        </Link>
+      )}
+    </Flex>
     {lastModified && (
       <Text px={2} isTruncated fontSize="xs" color="gray.400">
         {formatter.format(lastModified.toDate())}

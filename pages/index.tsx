@@ -7,11 +7,12 @@ import DynamicText from "components/DynamicText";
 import { useFirebaseUser } from "context/userContext";
 
 const Home = () => {
-  const { user, loading, signOut } = useFirebaseUser();
+  const { user, loading } = useFirebaseUser();
   const textRef = useRef(null);
 
   useEffect(() => {
     let timeoutId = null;
+
     if (!user && !loading) {
       timeoutId = setTimeout(() => {
         Router.push("/signin");
@@ -38,7 +39,7 @@ const Home = () => {
       return (
         <Flex paddingX="5rem" flexDirection="column" justifyContent="center" alignItems="center">
           <DynamicText ref={textRef} />
-          <Input onChange={onChange} />
+          <Input placeholder="Type something..." onChange={onChange} />
         </Flex>
       );
     }

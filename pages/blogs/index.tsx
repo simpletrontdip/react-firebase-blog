@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import {
   Flex,
   Box,
@@ -7,6 +8,7 @@ import {
   Heading,
   Text,
   Spinner,
+  Icon,
   Modal,
   ModalContent,
   ModalOverlay,
@@ -15,12 +17,17 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 
+import { MdAddCircleOutline } from "react-icons/md";
+
 import BlogCard from "components/BlogCard";
 import BlogDetail from "components/BlogDetail";
 import useFirebaseBlogs from "context/useBlogs";
 
 const Blog = () => {
-  const { blogs, loading, error } = useFirebaseBlogs({ limit: 10, offset: null });
+  const { blogs, loading, error } = useFirebaseBlogs({
+    limit: 10,
+    offset: null,
+  });
   const [activeBlog, setActiveBlog] = useState(null);
 
   return (
@@ -36,7 +43,14 @@ const Blog = () => {
         flexDirection="column"
         justifyContent="center"
         alignItems="center">
-        <Heading m={2}>Blogs</Heading>
+        <Flex width="100%" p={2} alignItems="center">
+          <Heading flex="1">Blogs</Heading>
+          <Link href="/dashboard">
+            <Button color="teal" variant="outline" fontSize="md">
+              <Icon as={MdAddCircleOutline} mr={1} /> New (Admin)
+            </Button>
+          </Link>
+        </Flex>
         {error && (
           <Box w="100%" textAlign="center" mt={3}>
             <Text size="sm" color="red.500">
@@ -72,7 +86,7 @@ const Blog = () => {
           <ModalContent>
             <ModalCloseButton />
             <ModalBody>
-              <BlogDetail {...activeBlog} />
+              <BlogDetail inModal {...activeBlog} />
             </ModalBody>
             <ModalFooter>
               <Button

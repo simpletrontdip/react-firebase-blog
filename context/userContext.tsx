@@ -7,6 +7,7 @@ type UserType = {
   displayName: string;
   email: string;
   photoURL: string;
+  isAdmin: boolean;
 };
 
 type FirebaseUserContextType = {
@@ -42,6 +43,7 @@ const FirebaseUserContext = createContext<FirebaseUserContextType>({
   signUp,
   oAuthSignIn,
 });
+
 const useFirebaseUser = () => useContext(FirebaseUserContext);
 
 const buildAuthState = memoizeOne((authState) => ({
@@ -64,7 +66,13 @@ const FirebaseUserContextProvider = ({ children }) => {
         // User is signed in.
         const { uid, displayName, email, photoURL } = user;
         setAuthState({
-          user: { uid, displayName, email, photoURL },
+          user: {
+            uid,
+            displayName,
+            email,
+            photoURL,
+            isAdmin: uid === process.env.NEXT_PUBLIC_ADMIN_USER_ID,
+          },
           loading: false,
         });
       } else {

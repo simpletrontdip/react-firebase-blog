@@ -1,8 +1,8 @@
 import React from "react";
 import { FiExternalLink } from "react-icons/fi";
 
-import { Box, Text, Heading, Flex, Image, AspectRatio, Icon } from "@chakra-ui/react";
 import Link from "next/link";
+import { Box, Text, Heading, Flex, Image, AspectRatio, Icon } from "@chakra-ui/react";
 
 const formatter = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "medium",

@@ -17,6 +17,7 @@ const SignUp = () => {
 
   useEffect(() => {
     let timeoutId = null;
+
     if (user) {
       timeoutId = setTimeout(() => {
         Router.push("/");

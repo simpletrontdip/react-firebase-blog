@@ -2,7 +2,7 @@ import { getBlogDetail, subscribeBlogChanges } from "api/blogs";
 import { useEffect, useState } from "react";
 import { BlogType } from "types/blog";
 
-type blogStateType = {
+type BlogStateType = {
   blog: BlogType | any | null;
   loading: boolean;
   error: string | null;
@@ -11,13 +11,17 @@ type blogStateType = {
 const blogDetailSelector = (slug) => (collection) => collection && collection.doc(slug);
 
 const useFirebaseBlog = ({ isSynced = true, slug }) => {
-  const [blogState, setBlogState] = useState<blogStateType>({
+  const [blogState, setBlogState] = useState<BlogStateType>({
     blog: null,
     loading: false,
     error: null,
   });
 
   useEffect(() => {
+    if (!slug) {
+      return;
+    }
+
     setBlogState((state) => ({
       ...state,
       loading: true,

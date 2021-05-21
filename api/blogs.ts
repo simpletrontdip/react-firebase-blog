@@ -11,7 +11,7 @@ const getAllBlogs = async (limit = 10, offset = null) => {
   const db = admin.firestore();
   const blogCollection = db.collection("blogs");
 
-  return blogCollection.orderBy("lastModified").startAfter(offset).limit(limit).get();
+  return blogCollection.orderBy("lastModified", "desc").startAfter(offset).limit(limit).get();
 };
 
 const saveBlog = async ({ slug, title, content, image = null, brief = null }) => {
