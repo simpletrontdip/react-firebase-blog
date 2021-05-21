@@ -1,0 +1,13 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "blogs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {"fieldPath": "lastModified", "order":  "DESCENDING"},
+        {"fieldPath": "title", "order":  "ASCENDING"}
+      ] 
+    }
+  ],
+  "fieldOverrides": []
+}

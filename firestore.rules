@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /blogs/{slug} {
+      allow read: if true;
+      allow write: if request.auth.uid == "06m6BvMJlhUYEWh0QAPehz08OUp1";
+    }
+  }
+}
