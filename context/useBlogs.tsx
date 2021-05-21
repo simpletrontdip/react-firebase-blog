@@ -1,13 +1,6 @@
 import { getAllBlogs, subscribeBlogChanges } from "api/blogs";
 import { useEffect, useState } from "react";
-
-type BlogType = {
-  slug: string;
-  title: string;
-  content: string;
-  brief: string;
-  image: string | null;
-};
+import { BlogType } from "types/blog";
 
 type BlogsStateType = {
   blogs: Array<BlogType | any> | null;

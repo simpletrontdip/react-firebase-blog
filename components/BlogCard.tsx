@@ -29,19 +29,26 @@ const BlockCard = ({ slug, title, image, brief, lastModified, onClick }) => {
         )}
         <Box p={4} flex="1" overflow="hidden">
           <Flex alignItems="center">
-            <Heading isTruncated size="md">
+            <Heading isTruncated size="md" cursor="pointer">
               {title}
             </Heading>
             <Link href={`/blogs/${slug}`}>
-              <Icon cursor="pointer" ml="auto" as={FiExternalLink} />
+              <Icon
+                onClick={() => {
+                  // ignore event buble up
+                }}
+                ml="auto"
+                cursor="pointer"
+                as={FiExternalLink}
+              />
             </Link>
           </Flex>
           {lastModified && (
-            <Text isTruncated mt={1} fontSize="sm" color="gray.300">
+            <Text isTruncated mt={1} fontSize="sm" color="gray.400">
               {formatter.format(lastModified.toDate())}
             </Text>
           )}
-          <Text isTruncated mt={2} fontSize="md">
+          <Text isTruncated mt={2} fontSize="sm">
             {brief}
           </Text>
         </Box>

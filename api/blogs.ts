@@ -4,24 +4,26 @@ const getBlogDetail = async (slug) => {
   const db = admin.firestore();
   const blogCollection = db.collection("blogs");
 
-  return blogCollection.where("slug", "==", slug).get();
+  return blogCollection.doc(slug).get();
 };
 
 const getAllBlogs = async (limit = 10, offset = null) => {
   const db = admin.firestore();
   const blogCollection = db.collection("blogs");
 
-  return blogCollection.orderBy("slug").startAfter(offset).limit(limit).get();
+  return blogCollection.orderBy("lastModified").startAfter(offset).limit(limit).get();
 };
 
-const saveBlog = async ({ slug, title, content, image, brief }) => {
+const saveBlog = async ({ slug, title, content, image = null, brief = null }) => {
   const db = admin.firestore();
   const blogCollection = db.collection("blogs");
   return blogCollection.doc(slug).set({
     title,
+    slug,
     content,
     image,
     brief,
+    lastModified: new Date(),
   });
 };
 
@@ -32,12 +34,15 @@ const deleteBlog = async (slug) => {
   return blogCollection.doc(slug).delete();
 };
 
-const subscribeBlogChanges = (callback) => {
+const subscribeBlogChanges = (callback, selector = null) => {
   const db = admin.firestore();
   const blogCollection = db.collection("blogs");
 
+  // apply some selector to current collection
+  const collection = selector ? selector(blogCollection) : blogCollection;
+
   // this will return a unsubscriber
-  return blogCollection.onSnapshot(callback);
+  return collection.onSnapshot(callback);
 };
 
 export { getBlogDetail, getAllBlogs, saveBlog, deleteBlog, subscribeBlogChanges };

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import {
   Flex,
@@ -9,15 +10,14 @@ import {
   Modal,
   ModalContent,
   ModalOverlay,
-  ModalHeader,
   ModalBody,
   ModalFooter,
   ModalCloseButton,
 } from "@chakra-ui/react";
 
 import BlogCard from "components/BlogCard";
+import BlogDetail from "components/BlogDetail";
 import useFirebaseBlogs from "context/useBlogs";
-import { useState } from "react";
 
 const Blog = () => {
   const { blogs, loading, error } = useFirebaseBlogs({ limit: 10, offset: null });
@@ -70,14 +70,12 @@ const Blog = () => {
           }}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>{activeBlog.title}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Box>{activeBlog.content}</Box>
+              <BlogDetail {...activeBlog} />
             </ModalBody>
             <ModalFooter>
               <Button
-                mr={3}
                 onClick={() => {
                   setActiveBlog(null);
                 }}>

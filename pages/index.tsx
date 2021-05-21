@@ -52,7 +52,7 @@ const Home = () => {
   };
 
   return (
-    <Flex minHeight="100vh" paddingY="0.5rem" flexDirection="column" justifyContent="center" alignItems="center">
+    <Flex height="100%" paddingY="0.5rem" flexDirection="column" justifyContent="center" alignItems="center">
       <Head>
         <title>Coding Test: Home</title>
         <link rel="icon" href="/favicon.ico" />
