@@ -34,8 +34,8 @@ const BlockCard = ({ slug, title, image, brief, lastModified, onClick }) => {
             </Heading>
             <Link href={`/blogs/${slug}`}>
               <Icon
-                onClick={() => {
-                  // ignore event buble up
+                onClick={(event) => {
+                  event.stopPropagation();
                 }}
                 ml="auto"
                 cursor="pointer"

@@ -94,7 +94,7 @@ const SignUp = () => {
 
   return (
     <Flex
-      minHeight="100vh"
+      height="100%"
       paddingY="0.5rem"
       flexDirection="column"
       justifyContent="center"
