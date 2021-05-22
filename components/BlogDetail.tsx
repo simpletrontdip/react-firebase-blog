@@ -9,7 +9,7 @@ const formatter = new Intl.DateTimeFormat("en-GB", {
   timeStyle: "short",
 });
 
-const BlogDetail = ({ inModal, slug, title, lastModified, content }) => {
+const BlogDetail = ({ inModal, slug, title, brief, lastModified, content }) => {
   const { user } = useFirebaseUser();
   return (
     <Box minHeight="320px">
@@ -30,6 +30,9 @@ const BlogDetail = ({ inModal, slug, title, lastModified, content }) => {
           {formatter.format(lastModified.toDate())}
         </Text>
       )}
+      <Text px={2} mt={1} fontSize="sm" color="gray.500" fontWeight="semibold">
+        {brief}
+      </Text>
       <Box mt={3} p={2} fontSize="sm">
         <RawHtmlContainer textAlign="justify" htmlContent={content} />
       </Box>
