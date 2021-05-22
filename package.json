@@ -21,7 +21,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.2.0",
-    "react-rte": "^0.16.3",
+    "react-rte": "git://github.com/sstur/react-rte.git#b6c30d9c7d53f4377a65034a88f6a71b78126402",
     "sanitize-html": "^2.4.0",
     "sass": "^1.33.0",
     "slugify": "^1.5.3"
