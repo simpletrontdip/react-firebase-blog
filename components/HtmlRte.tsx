@@ -44,6 +44,7 @@ const HtmlRte = ({ placeholder, value, onChange }) => {
       }}
       placeholder={placeholder}
       className={styles.htmlEditor}
+      toolbarClassName={styles.toolBar}
       customStyleMap={CUSTOM_STYLE_MAP}
     />
   );

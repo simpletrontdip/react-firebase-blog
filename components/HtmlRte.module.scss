@@ -4,6 +4,15 @@
 
   font-size: 14px;
   white-space: initial;
+  border-color: $border-color !important;
+  border-radius: var(--chakra-radii-lg) !important;
+
+  &:focus,
+  &:focus-within,
+  &[data-focus] {
+    border-color: #3182ce !important;
+    box-shadow: 0 0 0 1px #3182ce;
+  }
 
   & > * {
     font-size: 14px;
@@ -50,4 +59,8 @@
       }
     }
   }
+}
+
+.toolBar {
+  border-color: var(--chakra-colors-gray-200) !important;
 }
