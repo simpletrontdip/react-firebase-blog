@@ -7,7 +7,7 @@ const getBlogDetail = async (slug) => {
   return blogCollection.doc(slug).get();
 };
 
-const getAllBlogs = async (limit = 10, offset = null) => {
+const getAllBlogs = async (limit = 20, offset = null) => {
   const db = admin.firestore();
   const blogCollection = db.collection("blogs");
 
