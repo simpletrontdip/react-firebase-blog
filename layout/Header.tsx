@@ -35,7 +35,7 @@ const Header = () => {
         </Heading>
         {user && (
           <>
-            <Avatar name={user.displayName} src={user.photoURL} />
+            <Avatar size="sm" name={user.displayName} src={user.photoURL} />
             <Button
               ml={1}
               variant="outline"

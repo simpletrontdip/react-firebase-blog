@@ -1,9 +1,14 @@
 import { useState } from "react";
 import slugify from "slugify";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import Router from "next/router";
-import { Flex, Box, Button, Input, Stack, Text, Textarea } from "@chakra-ui/react";
+import { Flex, Box, Button, Input, Stack, Text } from "@chakra-ui/react";
 import { saveBlog } from "api/blogs";
+
+const HtmlRte = dynamic(() => import("./HtmlRte"), {
+  ssr: false,
+});
 
 const BlogEditor = (props) => {
   const blog = props.blog || {};
@@ -11,6 +16,7 @@ const BlogEditor = (props) => {
   const [brief, setBrief] = useState(blog.brief || "");
   const [content, setContent] = useState(blog.content || "");
   const [imageUrl, setImageUrl] = useState(blog.image || "");
+
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
   const isNew = !blog.slug;
@@ -58,14 +64,10 @@ const BlogEditor = (props) => {
             setBrief(event.target.value);
           }}
         />
-        <Textarea
-          rows={12}
-          fontSize="sm"
+        <HtmlRte
           value={content}
-          placeholder="Content"
-          onChange={(event) => {
-            setContent(event.target.value);
-          }}
+          placeholder="Blog content, you can insert rich-text content here"
+          onChange={setContent}
         />
         <Input
           fontSize="sm"

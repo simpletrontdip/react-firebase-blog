@@ -78,6 +78,7 @@ const Blog = () => {
       </Flex>
       {activeBlog && (
         <Modal
+          size="2xl"
           isOpen={!!activeBlog}
           onClose={() => {
             setActiveBlog(null);

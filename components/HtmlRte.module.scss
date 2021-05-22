@@ -1,0 +1,46 @@
+.htmlEditor {
+  $border-color: #dcdcdc !default;
+  $palette-blue-500: lightblue !default;
+
+  button[class*="IconButton"],
+  select + span[class*="Dropdown__value"] {
+    border: 1px solid $border-color;
+    border-radius: 2px;
+    margin-right: 2px;
+    background: #ffffff;
+
+    & > span {
+      opacity: 0.54;
+    }
+
+    &:hover,
+    &[class*="IconButton__isActive"] {
+      border-color: unquote("rgba(#{$palette-blue-500, 1})");
+
+      & > span {
+        opacity: 0.87;
+      }
+    }
+  }
+
+  select {
+    padding-left: 8px;
+  }
+
+  button + [class*="InputPopover__root"] {
+    width: max-content;
+    background: #ffffff;
+    border: 1px solid $border-color;
+
+    &::before {
+      border-bottom-color: $border-color;
+    }
+
+    & > [class*="InputPopover__inner"] {
+      & > input {
+        margin-right: 4px;
+        border: 1px solid $border-color;
+      }
+    }
+  }
+}

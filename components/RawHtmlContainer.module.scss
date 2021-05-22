@@ -1,0 +1,46 @@
+.rawHtmlContainer {
+  font-size: 14px;
+  white-space: initial;
+
+  & > * {
+    font-size: inherit;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.4;
+    font-weight: 500;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  blockquote {
+    font-size: inherit;
+  }
+
+  code {
+    background-color: #f3f3f3;
+    font-size: 14px;
+    padding: 2px;
+  }
+
+  & > pre {
+    background-color: #f3f3f3;
+    padding: 20px;
+    white-space: pre;
+    overflow: auto;
+  }
+}

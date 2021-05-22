@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { Box, Text, Button, Flex, Icon } from "@chakra-ui/react";
 import { MdEdit } from "react-icons/md";
+import RawHtmlContainer from "./RawHtmlContainer";
 
 const formatter = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "medium",
   timeStyle: "short",
 });
-
-const escapeHtmlContent = (content) => content;
 
 const BlogDetail = ({ inModal, slug, title, lastModified, content }) => (
   <Box minHeight="320px">
@@ -29,7 +28,7 @@ const BlogDetail = ({ inModal, slug, title, lastModified, content }) => (
       </Text>
     )}
     <Box mt={3} p={2} fontSize="sm">
-      <Box textAlign="justify" dangerouslySetInnerHTML={{ __html: escapeHtmlContent(content) }} />
+      <RawHtmlContainer textAlign="justify" htmlContent={content} />
     </Box>
   </Box>
 );
