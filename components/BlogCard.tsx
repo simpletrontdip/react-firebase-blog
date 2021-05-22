@@ -15,7 +15,7 @@ const BlockCard = ({ slug, title, image, brief, lastModified, onClick }) => {
       mx={2}
       my={5}
       maxHeight="136px"
-      flexBasis={["90%", "380px"]}
+      flexBasis={["90vw", "90vw", "380px"]}
       boxSizing="border-box"
       borderWidth="1px"
       borderRadius="md"

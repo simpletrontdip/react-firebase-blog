@@ -35,7 +35,14 @@ const makeHandleLinkClick = (onClick) => (event) => {
   }
 };
 
-const RawHtmlContainer = ({ htmlContent, onClick, children, ...otherProps }) => {
+type RawHtmlContainerProps = {
+  htmlContent: string;
+  onClick?: (e: any) => void;
+  children?: any;
+  [x: string]: any;
+};
+
+const RawHtmlContainer = ({ htmlContent, onClick, children, ...otherProps }: RawHtmlContainerProps) => {
   const customProps = htmlContent
     ? {
         dangerouslySetInnerHTML: { __html: normalizeHtmlString(htmlContent) },

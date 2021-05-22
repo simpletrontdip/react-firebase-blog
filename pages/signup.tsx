@@ -42,7 +42,7 @@ const SignUp = () => {
     }
 
     return (
-      <Stack spacing={4} w="240px">
+      <Stack spacing={4} w={["80%", "60%", "280px"]}>
         <Heading as="h1" size="lg">
           Sign Up
         </Heading>
@@ -100,7 +100,7 @@ const SignUp = () => {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      w={[400, 600, 800]}
+      w={["100%", 400, 560]}
       mx="auto">
       <Head>
         <title>Coding Test: Login</title>

@@ -22,8 +22,10 @@ import { MdAddCircleOutline } from "react-icons/md";
 import BlogCard from "components/BlogCard";
 import BlogDetail from "components/BlogDetail";
 import useFirebaseBlogs from "context/useBlogs";
+import { useFirebaseUser } from "context/userContext";
 
 const Blog = () => {
+  const { user } = useFirebaseUser();
   const { blogs, loading, error } = useFirebaseBlogs({
     limit: 10,
     offset: null,
@@ -36,45 +38,39 @@ const Blog = () => {
         <title>Coding Test: Blog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Flex
-        mx="auto"
-        padding={2}
-        boxSizing="border-box"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center">
-        <Flex width="100%" p={2} alignItems="center">
-          <Heading flex="1">Blogs</Heading>
+      <Flex w={["100%", "100%", 800]} margin="auto" px={[4, 4, 2]} py={2} alignItems="center">
+        <Heading flex="1">Blogs</Heading>
+        {user && user.isAdmin && (
           <Link href="/dashboard">
             <Button color="teal" variant="outline" fontSize="md">
-              <Icon as={MdAddCircleOutline} mr={1} /> New (Admin)
+              <Icon as={MdAddCircleOutline} mr={1} /> New
             </Button>
           </Link>
-        </Flex>
-        {error && (
-          <Box w="100%" textAlign="center" mt={3}>
-            <Text size="sm" color="red.500">
-              {error}
-            </Text>
+        )}
+      </Flex>
+      {error && (
+        <Box w="100%" textAlign="center" mt={3}>
+          <Text size="sm" color="red.500">
+            {error}
+          </Text>
+        </Box>
+      )}
+      <Flex flex="1" w={["100%", "100%", 800]} margin="auto" flexFlow="row wrap" justifyContent="space-around">
+        {loading && !blogs && (
+          <Box width="100%" textAlign="center">
+            <Spinner label="loading..." />
           </Box>
         )}
-        <Flex w={["auto", "100%", 800]} flexFlow="row wrap" justifyContent="space-around">
-          {loading && !blogs && (
-            <Box width="100%" textAlign="center">
-              <Spinner label="loading..." />
-            </Box>
-          )}
-          {blogs &&
-            blogs.map((blog) => (
-              <BlogCard
-                key={blog.slug}
-                {...blog}
-                onClick={() => {
-                  setActiveBlog(blog);
-                }}
-              />
-            ))}
-        </Flex>
+        {blogs &&
+          blogs.map((blog) => (
+            <BlogCard
+              key={blog.slug}
+              {...blog}
+              onClick={() => {
+                setActiveBlog(blog);
+              }}
+            />
+          ))}
       </Flex>
       {activeBlog && (
         <Modal

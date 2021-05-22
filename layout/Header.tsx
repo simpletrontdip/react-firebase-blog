@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { Avatar, Button, Flex, Heading } from "@chakra-ui/react";
-import { useFirebaseUser } from "context/userContext";
 import Router from "next/router";
+import { Avatar, Button, Flex, Heading, Text } from "@chakra-ui/react";
+
+import { useFirebaseUser } from "context/userContext";
 
 const Header = () => {
   const { user, signOut } = useFirebaseUser();
@@ -36,6 +37,7 @@ const Header = () => {
         {user && (
           <>
             <Avatar size="sm" name={user.displayName} src={user.photoURL} />
+            {user.isAdmin && <Text fontWeight="semibold">(Admin)</Text>}
             <Button
               ml={1}
               variant="outline"

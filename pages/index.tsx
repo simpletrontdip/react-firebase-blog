@@ -37,10 +37,10 @@ const Home = () => {
 
     if (user) {
       return (
-        <Flex paddingX="5rem" flexDirection="column" justifyContent="center" alignItems="center">
+        <>
           <DynamicText ref={textRef} />
-          <Input placeholder="Type something..." onChange={onChange} />
-        </Flex>
+          <Input w={["90%", "90%", 640]} mt={2} placeholder="Type something..." onChange={onChange} />
+        </>
       );
     }
 
@@ -53,13 +53,15 @@ const Home = () => {
   };
 
   return (
-    <Flex height="100%" paddingY="0.5rem" flexDirection="column" justifyContent="center" alignItems="center">
+    <>
       <Head>
         <title>Coding Test: Home</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {renderContent()}
-    </Flex>
+      <Flex flex="1" px={2} flexDirection="column" justifyContent="center" alignItems="center">
+        {renderContent()}
+      </Flex>
+    </>
   );
 };
 

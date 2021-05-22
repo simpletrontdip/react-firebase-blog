@@ -17,7 +17,7 @@ const BlogPage = () => {
         <title>Coding Test: Blog Detail</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Flex direction="column" w={["auto", "100%", 720]} p={2} mx="auto">
+      <Flex direction="column" w={["100%", "100%", 720]} p={3} mx="auto">
         {error && (
           <Box w="100%" textAlign="center" mt={3}>
             <Text size="sm" color="red.500">

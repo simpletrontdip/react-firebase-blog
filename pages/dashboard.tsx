@@ -19,7 +19,7 @@ const Dashboard = () => {
     if ((!user || !user.isAdmin) && !loading) {
       timeoutId = setTimeout(() => {
         Router.push(user ? "/" : "/signin");
-      }, 1000);
+      }, 1500);
     }
 
     return () => {
@@ -35,7 +35,7 @@ const Dashboard = () => {
         <title>Coding Test: Blog Editor</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Flex direction="column" w={["100%", 640]} p={2} mx="auto">
+      <Flex direction="column" w={["100%", "100%", 720]} p={2} mx="auto">
         {error && (
           <Box w="100%" textAlign="center" mt={3}>
             <Text size="sm" color="red.500">

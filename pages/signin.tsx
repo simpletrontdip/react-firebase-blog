@@ -43,7 +43,7 @@ const SignIn = () => {
     }
 
     return (
-      <Stack spacing={4} w="240px">
+      <Stack spacing={4} w={["80%", "60%", "280px"]}>
         <Heading as="h1" size="lg">
           Sign In
         </Heading>

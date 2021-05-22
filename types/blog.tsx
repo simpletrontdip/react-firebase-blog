@@ -3,5 +3,5 @@ export type BlogType = {
   title: string;
   content: string;
   brief: string;
-  image: string | null;
+  image?: string;
 };

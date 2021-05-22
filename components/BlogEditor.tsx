@@ -77,6 +77,8 @@ const BlogEditor = (props) => {
             setImageUrl(event.target.value);
           }}
         />
+      </Stack>
+      <Stack mt={3} p={2} spacing={4} fontSize="sm">
         <Flex justifyContent="flex-end">
           {error && (
             <Box w="100%" textAlign="center" mt={3}>
@@ -86,8 +88,8 @@ const BlogEditor = (props) => {
             </Box>
           )}
           {!saving && (
-            <Link href="/blogs">
-              <Button textAlign="center">Back</Button>
+            <Link href={`/blogs${blog.slug ? `?slug=${blog.slug}` : ""}`}>
+              <Button textAlign="center">Cancel</Button>
             </Link>
           )}
           <Button
@@ -95,7 +97,7 @@ const BlogEditor = (props) => {
             color="white"
             bgColor="blue.400"
             onClick={submitChange}
-            disabled={!title || !content || !imageUrl}>
+            disabled={!title || !content || !brief}>
             Save
           </Button>
         </Flex>

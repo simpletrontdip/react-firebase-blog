@@ -1,6 +1,13 @@
 .htmlEditor {
-  $border-color: #dcdcdc !default;
-  $palette-blue-500: lightblue !default;
+  $border-color: var(--chakra-colors-gray-200) !default;
+  $border-color-active: var(--chakra-colors-blue-500) !default;
+
+  font-size: 14px;
+  white-space: initial;
+
+  & > * {
+    font-size: 14px;
+  }
 
   button[class*="IconButton"],
   select + span[class*="Dropdown__value"] {
@@ -15,7 +22,7 @@
 
     &:hover,
     &[class*="IconButton__isActive"] {
-      border-color: unquote("rgba(#{$palette-blue-500, 1})");
+      border-color: $border-color-active;
 
       & > span {
         opacity: 0.87;

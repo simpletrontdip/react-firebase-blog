@@ -5,7 +5,10 @@ import styles from "./HtmlRte.module.scss";
 
 const CUSTOM_STYLE_MAP = {
   CODE: {
-    backgroundColor: "#f3f3f3",
+    fontSize: 14,
+    padding: 2,
+  },
+  PRE: {
     fontSize: 14,
     padding: 2,
   },
