@@ -31,6 +31,15 @@ const SignUp = () => {
     };
   }, [user]);
 
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    signUp(email, password)
+      .then(() => {
+        Router.push("/");
+      })
+      .catch((error) => setError(error.message));
+  };
+
   const renderContent = () => {
     if (user) {
       return (
@@ -42,54 +51,54 @@ const SignUp = () => {
     }
 
     return (
-      <Stack spacing={4} w={["80%", "60%", "280px"]}>
-        <Heading as="h1" size="lg">
-          Sign Up
-        </Heading>
-        <Input
-          value={email}
-          placeholder="Email"
-          onChange={(event) => {
-            setEmail(event.target.value);
-          }}
-        />
-        <Input
-          value={password}
-          type="password"
-          placeholder="Password"
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
-        />
-        <Input
-          value={passwordConfirm}
-          isInvalid={passwordConfirm && password !== passwordConfirm}
-          type="password"
-          placeholder="Confirm Password"
-          onChange={(event) => {
-            setPasswordConfirm(event.target.value);
-          }}
-        />
-        <Button
-          color="white"
-          bgColor="blue.300"
-          disabled={!email || !password || passwordConfirm !== password}
-          onClick={() => {
-            signUp(email, password).catch((error) => setError(error.message));
-          }}>
-          {loading ? "Signing Up..." : "Sign Up"}
-        </Button>
-        <Text size="sm" textAlign="center">
-          Already have account?
-        </Text>
-        <Button
-          color="blue.200"
-          onClick={() => {
-            Router.push("/signin");
-          }}>
-          Sign In
-        </Button>
-      </Stack>
+      <form onSubmit={onFormSubmit}>
+        <Stack spacing={4} w={["80%", "60%", "280px"]}>
+          <Heading as="h1" size="lg">
+            Sign Up
+          </Heading>
+          <Input
+            value={email}
+            placeholder="Email"
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+          />
+          <Input
+            value={password}
+            type="password"
+            placeholder="Password"
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+          />
+          <Input
+            value={passwordConfirm}
+            isInvalid={passwordConfirm && password !== passwordConfirm}
+            type="password"
+            placeholder="Confirm Password"
+            onChange={(event) => {
+              setPasswordConfirm(event.target.value);
+            }}
+          />
+          <Button
+            color="white"
+            bgColor="blue.300"
+            disabled={!email || !password || passwordConfirm !== password}
+            type="submit">
+            {loading ? "Signing Up..." : "Sign Up"}
+          </Button>
+          <Text size="sm" textAlign="center">
+            Already have account?
+          </Text>
+          <Button
+            color="blue.200"
+            onClick={() => {
+              Router.push("/signin");
+            }}>
+            Sign In
+          </Button>
+        </Stack>
+      </form>
     );
   };
 

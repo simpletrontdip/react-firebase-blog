@@ -32,6 +32,16 @@ const SignIn = () => {
     };
   }, [user]);
 
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+
+    signIn(email, password)
+      .then(() => {
+        Router.push("/");
+      })
+      .catch((error) => setError(error.message));
+  };
+
   const renderContent = () => {
     if (user) {
       return (
@@ -43,55 +53,51 @@ const SignIn = () => {
     }
 
     return (
-      <Stack spacing={4} w={["80%", "60%", "280px"]}>
-        <Heading as="h1" size="lg">
-          Sign In
-        </Heading>
-        <Input
-          value={email}
-          placeholder="Email"
-          onChange={(event) => {
-            setEmail(event.target.value);
-          }}
-        />
-        <Input
-          value={password}
-          type="password"
-          placeholder="Password"
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
-        />
-        <Button
-          color="white"
-          bgColor="blue.300"
-          disabled={!email || !password}
-          onClick={() => {
-            signIn(email, password).catch((error) => setError(error.message));
-          }}>
-          Sign In
-        </Button>
-        <Button
-          color="red.500"
-          variant="outline"
-          onClick={() => {
-            oAuthSignIn(googleAuthProvider)
-              .then(() => Router.push("/"))
-              .catch((error) => setError(error.message));
-          }}>
-          {loading ? "Signing In" : "Sign In with Google"}
-        </Button>
-        <Text size="sm" textAlign="center">
-          Don't have account?
-        </Text>
-        <Button
-          color="blue.200"
-          onClick={() => {
-            Router.push("/signup");
-          }}>
-          Sign Up
-        </Button>
-      </Stack>
+      <form onSubmit={onFormSubmit}>
+        <Stack spacing={4} w={["80%", "60%", "280px"]}>
+          <Heading as="h1" size="lg">
+            Sign In
+          </Heading>
+          <Input
+            value={email}
+            placeholder="Email"
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+          />
+          <Input
+            value={password}
+            type="password"
+            placeholder="Password"
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+          />
+          <Button color="white" bgColor="blue.300" disabled={!email || !password} type="submit" onClick={() => {}}>
+            Sign In
+          </Button>
+          <Button
+            color="red.500"
+            variant="outline"
+            onClick={() => {
+              oAuthSignIn(googleAuthProvider)
+                .then(() => Router.push("/"))
+                .catch((error) => setError(error.message));
+            }}>
+            {loading ? "Signing In" : "Sign In with Google"}
+          </Button>
+          <Text size="sm" textAlign="center">
+            Don't have account?
+          </Text>
+          <Button
+            color="blue.200"
+            onClick={() => {
+              Router.push("/signup");
+            }}>
+            Sign Up
+          </Button>
+        </Stack>
+      </form>
     );
   };
 
