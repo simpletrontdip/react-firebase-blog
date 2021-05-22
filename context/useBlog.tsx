@@ -1,4 +1,4 @@
-import { getBlogDetail, subscribeBlogChanges } from "api/blogs";
+import { getBlogDetailCollection, subscribeCollectionChanges } from "api/blogs";
 import { useEffect, useState } from "react";
 import { BlogType } from "types/blog";
 
@@ -8,9 +8,7 @@ type BlogStateType = {
   error: string | null;
 };
 
-const blogDetailSelector = (slug) => (collection) => collection && collection.doc(slug);
-
-const useFirebaseBlog = ({ isSynced = true, slug }) => {
+const useFirebaseBlog = ({ slug }) => {
   const [blogState, setBlogState] = useState<BlogStateType>({
     blog: null,
     loading: false,
@@ -27,32 +25,23 @@ const useFirebaseBlog = ({ isSynced = true, slug }) => {
       loading: true,
     }));
 
-    // call the api
-    getBlogDetail(slug)
-      .then((doc) => {
+    return subscribeCollectionChanges(
+      getBlogDetailCollection(slug),
+      (doc) => {
         setBlogState({
           blog: doc.exists ? doc.data() : null,
           loading: false,
           error: doc.exists ? null : "This blog does not exist",
         });
-      })
-      .catch((error) => {
+      },
+      (error) => {
         setBlogState(({ blog }) => ({
           blog,
           loading: false,
           error: error.message,
         }));
-      });
-
-    return isSynced
-      ? subscribeBlogChanges((doc) => {
-          setBlogState({
-            blog: doc.exists ? doc.data() : null,
-            loading: false,
-            error: doc.exists ? null : "This blog does not exist",
-          });
-        }, blogDetailSelector(slug))
-      : null;
+      }
+    );
   }, [slug]);
 
   return blogState;

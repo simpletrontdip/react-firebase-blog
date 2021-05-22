@@ -1,20 +1,29 @@
 import admin from "../firebase/clientApp";
 
-const getBlogDetail = async (slug) => {
+const getBlogDetailCollection = (slug) => {
   const db = admin.firestore();
   const blogCollection = db.collection("blogs");
 
-  return blogCollection.doc(slug).get();
+  return blogCollection.doc(slug);
 };
 
-const getAllBlogs = async (limit = 20, offset = null) => {
+const getBlogDetail = (slug) => getBlogDetailCollection(slug).get();
+
+const getAllBlogsCollection = (limit = 20, offset = null) => {
   const db = admin.firestore();
   const blogCollection = db.collection("blogs");
 
-  return blogCollection.orderBy("lastModified", "desc").startAfter(offset).limit(limit).get();
+  const collection = blogCollection.orderBy("lastModified", "desc").limit(limit);
+  if (offset) {
+    return collection.startAfter(offset);
+  }
+
+  return collection;
 };
 
-const saveBlog = async ({ slug, title, content, image = null, brief = null }) => {
+const getAllBlogs = (limit, offset) => getAllBlogsCollection(limit, offset).get();
+
+const saveBlog = ({ slug, title, content, image = null, brief = null }) => {
   const db = admin.firestore();
   const blogCollection = db.collection("blogs");
   return blogCollection.doc(slug).set({
@@ -27,22 +36,24 @@ const saveBlog = async ({ slug, title, content, image = null, brief = null }) =>
   });
 };
 
-const deleteBlog = async (slug) => {
+const deleteBlog = (slug) => {
   const db = admin.firestore();
   const blogCollection = db.collection("blogs");
 
   return blogCollection.doc(slug).delete();
 };
 
-const subscribeBlogChanges = (callback, selector = null) => {
-  const db = admin.firestore();
-  const blogCollection = db.collection("blogs");
-
-  // apply some selector to current collection
-  const collection = selector ? selector(blogCollection) : blogCollection;
-
+const subscribeCollectionChanges = (collection, onCallback, onError) => {
   // this will return a unsubscriber
-  return collection.onSnapshot(callback);
+  return collection.onSnapshot(onCallback, onError);
 };
 
-export { getBlogDetail, getAllBlogs, saveBlog, deleteBlog, subscribeBlogChanges };
+export {
+  getBlogDetail,
+  getBlogDetailCollection,
+  getAllBlogs,
+  getAllBlogsCollection,
+  saveBlog,
+  deleteBlog,
+  subscribeCollectionChanges,
+};
