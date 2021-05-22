@@ -35,7 +35,7 @@ const SignUp = () => {
     if (user) {
       return (
         <>
-          <Text>You are already in.</Text>
+          <Text>You are logged in already. Redirect now...</Text>
           <Spinner label="Redirecting..." />
         </>
       );
