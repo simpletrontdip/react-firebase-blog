@@ -1,4 +1,4 @@
-## React firebase blog
+## React firebase blog: 
 - Fetch blogs from firebase
 - Update realtime
 - Use Chakra UI

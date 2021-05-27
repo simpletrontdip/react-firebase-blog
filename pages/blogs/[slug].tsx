@@ -14,7 +14,7 @@ const BlogPage = () => {
   return (
     <>
       <Head>
-        <title>Coding Test: Blog Detail</title>
+        <title>Firebase blog: Blog Detail</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Flex direction="column" w={["100%", "100%", 720]} p={3} mx="auto">

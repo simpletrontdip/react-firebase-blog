@@ -35,7 +35,7 @@ const Blog = () => {
   return (
     <>
       <Head>
-        <title>Coding Test: Blog</title>
+        <title>Firebase blog: Blog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Flex w={["100%", "100%", 800]} margin="auto" px={[4, 4, 2]} py={2} alignItems="center">

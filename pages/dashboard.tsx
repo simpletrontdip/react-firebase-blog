@@ -32,7 +32,7 @@ const Dashboard = () => {
   return (
     <>
       <Head>
-        <title>Coding Test: Blog Editor</title>
+        <title>Firebase blog: Blog Editor</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Flex direction="column" w={["100%", "100%", 720]} p={2} mx="auto">

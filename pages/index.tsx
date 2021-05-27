@@ -55,7 +55,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Coding Test: Home</title>
+        <title>Firebase blog: Home</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Flex flex="1" px={2} flexDirection="column" justifyContent="center" alignItems="center">

@@ -109,7 +109,7 @@ const SignIn = () => {
       w={["100%", 400, 560]}
       mx="auto">
       <Head>
-        <title>Coding Test: Login</title>
+        <title>Firebase blog: Login</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {renderContent()}
