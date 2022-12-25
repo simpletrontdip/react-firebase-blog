@@ -3814,9 +3814,9 @@ react-remove-scroll@2.4.1:
     use-callback-ref "^1.2.3"
     use-sidecar "^1.0.1"
 
-"react-rte@git://github.com/sstur/react-rte.git#b6c30d9c7d53f4377a65034a88f6a71b78126402":
+"react-rte@git+https://github.com/sstur/react-rte.git#b6c30d9c7d53f4377a65034a88f6a71b78126402":
   version "0.16.3"
-  resolved "git://github.com/sstur/react-rte.git#b6c30d9c7d53f4377a65034a88f6a71b78126402"
+  resolved "git+https://github.com/sstur/react-rte.git#b6c30d9c7d53f4377a65034a88f6a71b78126402"
   dependencies:
     babel-runtime "^6.23.0"
     class-autobind "^0.1.4"
