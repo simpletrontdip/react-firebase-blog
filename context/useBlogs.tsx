@@ -26,7 +26,10 @@ const useFirebaseBlogs = ({ limit = 10, offset }) => {
       getAllBlogsCollection(limit, offset),
       (snapshot) => {
         setBlogsState({
-          blogs: snapshot.docs.map((d) => d.data()),
+          blogs: snapshot.docs.map((d) => ({
+            ...d.data(),
+            lastModified: d.data().lastModified.toDate(),
+          })),
           loading: false,
           error: null,
         });

@@ -2,45 +2,56 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 
-import { Box, Button, Flex, Spinner, Text } from "@chakra-ui/react";
-import useFirebaseBlog from "context/useBlog";
+import { Button, Flex } from "@chakra-ui/react";
 import BlogDetail from "components/BlogDetail";
-import { useRouter } from "next/router";
+import { getBlogDetail } from "api/blogs";
 
-const BlogPage = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-  const { blog, loading, error } = useFirebaseBlog({ slug });
+const BlogPage = ({ blog }) => {
   return (
     <>
       <Head>
-        <title>Firebase blog: Blog Detail</title>
+        <title>{blog.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Flex direction="column" w={["100%", "100%", 720]} p={3} mx="auto">
-        {error && (
-          <Box w="100%" textAlign="center" mt={3}>
-            <Text size="sm" color="red.500">
-              {error}
-            </Text>
-          </Box>
-        )}
-        {loading && !blog && (
-          <Box width="100%" textAlign="center">
-            <Spinner label="loading..." />
-          </Box>
-        )}
         {blog && <BlogDetail {...blog} />}
-        {!loading && (
-          <Link href="/blogs">
-            <Button w="100%" mx="auto" mt={5} mb={1} textAlign="center">
-              Back
-            </Button>
-          </Link>
-        )}
+        <Link href="/blogs">
+          <Button w="100%" mx="auto" mt={5} mb={1} textAlign="center">
+            Back
+          </Button>
+        </Link>
       </Flex>
     </>
   );
 };
 
+const getServerSideProps = async ({ params }) => {
+  try {
+    const doc = await getBlogDetail(params.slug);
+
+    if (!doc.exists) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const blog = doc.data();
+    const lastModified = blog.lastModified.toDate().toISOString();
+
+    return {
+      props: {
+        blog: {
+          ...blog,
+          lastModified,
+        },
+      },
+    };
+  } catch (error) {
+    return {
+      error,
+    };
+  }
+};
+
 export default BlogPage;
+export { getServerSideProps };

@@ -29,7 +29,12 @@ const useFirebaseBlog = ({ slug }) => {
       getBlogDetailCollection(slug),
       (doc) => {
         setBlogState({
-          blog: doc.exists ? doc.data() : null,
+          blog: doc.exists
+            ? {
+                ...doc.data(),
+                lastModified: doc.data().lastModified.toDate(),
+              }
+            : null,
           loading: false,
           error: doc.exists ? null : "This blog does not exist",
         });

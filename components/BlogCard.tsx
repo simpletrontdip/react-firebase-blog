@@ -45,7 +45,7 @@ const BlockCard = ({ slug, title, image, brief, lastModified, onClick }) => {
           </Flex>
           {lastModified && (
             <Text isTruncated mt={1} fontSize="sm" color="gray.400">
-              {formatter.format(lastModified.toDate())}
+              {formatter.format(lastModified)}
             </Text>
           )}
           <Text isTruncated mt={2} fontSize="sm">

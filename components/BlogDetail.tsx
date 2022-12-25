@@ -3,11 +3,7 @@ import { Box, Text, Button, Flex, Icon } from "@chakra-ui/react";
 import { MdEdit } from "react-icons/md";
 import RawHtmlContainer from "./RawHtmlContainer";
 import { useFirebaseUser } from "context/userContext";
-
-const formatter = new Intl.DateTimeFormat("en-GB", {
-  dateStyle: "medium",
-  timeStyle: "short",
-});
+import {formatDate} from 'utils/date-format'
 
 const BlogDetail = ({ inModal, slug, title, brief, lastModified, content }) => {
   const { user } = useFirebaseUser();
@@ -27,7 +23,7 @@ const BlogDetail = ({ inModal, slug, title, brief, lastModified, content }) => {
       </Flex>
       {lastModified && (
         <Text px={2} isTruncated fontSize="xs" color="gray.400">
-          {formatter.format(lastModified.toDate())}
+          {formatDate(lastModified)}
         </Text>
       )}
       <Text px={2} mt={1} fontSize="sm" color="gray.500" fontWeight="semibold">

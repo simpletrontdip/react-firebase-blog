@@ -21,7 +21,9 @@ const getAllBlogsCollection = (limit = 20, offset = null) => {
   return collection;
 };
 
-const getAllBlogs = (limit, offset) => getAllBlogsCollection(limit, offset).get();
+const getAllBlogs = (limit, offset) =>
+  getAllBlogsCollection(limit, offset)
+    .get()
 
 const saveBlog = ({ slug, title, content, image = null, brief = null }) => {
   const db = admin.firestore();
